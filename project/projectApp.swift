@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct projectApp: App {
+    @StateObject private var manager: DataManager = DataManager()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(manager)
+                .environment(\.managedObjectContext, manager.container.viewContext)
         }
     }
 }
