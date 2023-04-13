@@ -87,6 +87,9 @@ struct MuseumDetailView: View {
                         bm.id = Int16(museum.id)
                         bm.museum_name = museum.museum_name
                         bm.museum_addr = museum.museum_addr
+                        bm.museum_lat = museum.museum_lat
+                        bm.museum_lon = museum.museum_lon
+                        bm.museum_district = museum.museum_district
                         try? moc.save()
                         addedInBM = true
                     } else {
