@@ -62,12 +62,25 @@ struct MuseumListView: View {
                     NavigationLink {
                         MuseumDetailView(museum: museum)
                     } label: {
-                        VStack {
-                            Text(museum.museum_name).font(.system(size: 28)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            Text("Is it gov owned: " + (museum.museum_isgov == true ? "Yes" : "No")).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+//                        VStack {
+//                            Text(museum.museum_name).font(.system(size: 28)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+//                            Text("Is it gov owned: " + (museum.museum_isgov == true ? "Yes" : "No")).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+//                        }
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(museum.museum_name)
+                                .font(.system(size: 24))
+                                .fontWeight(.bold)
+                            Text(museum.museum_addr)
+                                .font(.system(size: 18))
+                                .foregroundColor(.gray)
+                            Text("Is it gov owned: " + (museum.museum_isgov ? "Yes" : "No"))
+                                .font(.system(size: 16))
+                                .foregroundColor(.gray)
                         }
+                        .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
                     }
                 }
+                .listStyle(InsetGroupedListStyle())
                 .navigationTitle("Museum List")
             } else {
                 List() {

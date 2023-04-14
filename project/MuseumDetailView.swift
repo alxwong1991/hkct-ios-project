@@ -109,18 +109,40 @@ struct MuseumDetailView: View {
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.capsule)
                 .controlSize(.large)
-                Text("Comments:").font(.system(size: 24)).frame(maxWidth: .infinity, alignment: .topLeading).padding(EdgeInsets(top: 18, leading: 14, bottom: 8, trailing: 0))
-                VStack{
+                Text("Comments:")
+                    .font(.system(size: 24))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(EdgeInsets(top: 18, leading: 14, bottom: 8, trailing: 0))
+                VStack(spacing: 10){
                     ForEach(commentsList.reversed()) { cm in
-                        VStack{
-                            Text(cm.sender+":")
+                        VStack(alignment: .leading, spacing: 8){
+                            Text("\(cm.sender):")
+                                .font(.headline)
+                                .foregroundColor(.blue)
+                                .frame(maxWidth: .infinity)
                             Text(cm.message)
+                                .font(.body)
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity)
                             Text(cm.datetime)
-                        }.background(Color(UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)))
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .padding(20)
+                        .background(Color(UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)))
+                        .cornerRadius(10)
+                        .fixedSize(horizontal: false, vertical: true)
                     }
-                }.padding(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 14))
+                }
+                .padding(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 14))
                 HStack {
                     TextField("You may leave comment here.", text: $commented)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                        .font(.headline)
                     Button(action: {
                         let paras: Dictionary = ["service":"leave_comments", "museumid":String(museum.id), "sender":"User", "message":commented]
                         createAjax(link:"https://pofo.me/museums/hkctapi.php", paras: paras) { response in
