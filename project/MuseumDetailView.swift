@@ -52,65 +52,144 @@ struct MuseumDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                HStack {
-                    Text("Name:\n" + museum.museum_name).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .topLeading).padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach([("Name:", museum.museum_name), ("Address:", museum.museum_addr), ("District:", museum.museum_district)], id: \.self.0) { title, value in
+                        Text(title)
+                            .font(.system(size: 24, weight: .bold))
+                            .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(value)
+                            .font(.system(size: 18))
+                            .foregroundColor(.gray)
+                            .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
-                HStack {
-                    Text("Address:\n" + museum.museum_addr).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .topLeading).padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
-                }
-                HStack {
-                    Text("District:\n" + museum.museum_district).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .topLeading).padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
-                }
+                .padding(.horizontal, 16)
                 
-                HStack{
+//                HStack {
+//                    Text("Name:\n" + museum.museum_name)
+//                        .font(.system(size: 24, weight: .bold))
+//                        .frame(maxWidth: .infinity, alignment: .topLeading)
+//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+//                }
+//                HStack {
+//                    Text("Address:\n" + museum.museum_addr)
+//                        .font(.system(size: 20))
+//                        .frame(maxWidth: .infinity, alignment: .topLeading)
+//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+//                }
+//                HStack {
+//                    Text("District:\n" + museum.museum_district)
+//                        .font(.system(size: 20))
+//                        .frame(maxWidth: .infinity, alignment: .topLeading)
+//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
+//                }
+                
+//                HStack {
+//                    Button(action: {
+//                        self.showMapView.toggle()
+//                    }) {
+//                        Text("View in Map")
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .buttonBorderShape(.capsule)
+//                    .controlSize(.large)
+//                    .frame(alignment: .topLeading)
+//                    .sheet(isPresented: $showMapView) {
+//                        if let lat = museum.museum_lat, let lon = museum.museum_lon {
+//                            Maps(lat: lat, lon: lon, region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: lon), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+//                        }
+//                    }
+//                    .foregroundColor(Color.white)
+//                    .padding(.trailing, 10)
+//                    .tint(Color.primary)
+//                    .cornerRadius(10)
+//
+//                    Button(action: {
+//                        if !addedInBM {
+//                            let bm = Bookmark(context: moc)
+//                            bm.id = Int16(museum.id)
+//                            bm.museum_name = museum.museum_name
+//                            bm.museum_addr = museum.museum_addr
+//                            bm.museum_lat = museum.museum_lat
+//                            bm.museum_lon = museum.museum_lon
+//                            bm.museum_district = museum.museum_district
+//                            try? moc.save()
+//                            addedInBM = true
+//                        } else {
+//                            for i in bookmarkItems{
+//                                if i.museum_name == museum.museum_name {
+//                                    moc.delete(i)
+//                                    try? moc.save()
+//                                    addedInBM = false
+//                                    return
+//                                }
+//                            }
+//                        }
+//                    })
+//                    {
+//                        Text((addedInBM ? "Remove from" : "Add to")+" Bookmark")
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .controlSize(.large)
+//                    .buttonBorderShape(.capsule)
+//                    .tint(addedInBM ? Color.red : Color.green)
+//                    .foregroundColor(.white)
+//                    .padding(.trailing, 10)
+//                    .cornerRadius(10)
+//
+//                }
+                
+                HStack(spacing: 10) {
                     Button(action: {
-                        self.showMapView.toggle()
+                        showMapView.toggle()
                     }) {
                         Text("View in Map")
                     }
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
                     .controlSize(.large)
-                    .frame(alignment: .topLeading)
                     .sheet(isPresented: $showMapView) {
                         if let lat = museum.museum_lat, let lon = museum.museum_lon {
-//                            print("lat: \(lat), lon: \(lon)")
                             Maps(lat: lat, lon: lon, region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: lon), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
                         }
-//                        Maps(lat: museum.museum_lat, lon: museum.museum_lon, region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: museum.museum_lat, longitude: museum.museum_lon), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
                     }
-                }
-                
-                Button(action: {
-                    if !addedInBM {
-                        let bm = Bookmark(context: moc)
-                        bm.id = Int16(museum.id)
-                        bm.museum_name = museum.museum_name
-                        bm.museum_addr = museum.museum_addr
-                        bm.museum_lat = museum.museum_lat
-                        bm.museum_lon = museum.museum_lon
-                        bm.museum_district = museum.museum_district
-                        try? moc.save()
-                        addedInBM = true
-                    } else {
-                        for i in bookmarkItems{
-                            if i.museum_name == museum.museum_name {
-                                moc.delete(i)
-                                try? moc.save()
-                                addedInBM = false
-                                return
-                            }
+                    .foregroundColor(.white)
+                    .tint(.primary)
+                    .cornerRadius(10)
+                    
+                    Button(action: {
+                        if let index = bookmarkItems.firstIndex(where: { $0.museum_name == museum.museum_name }) {
+                            moc.delete(bookmarkItems[index])
+                            try? moc.save()
+                            addedInBM = false
+                        } else {
+                            let bm = Bookmark(context: moc)
+                            bm.id = Int16(museum.id)
+                            bm.museum_name = museum.museum_name
+                            bm.museum_addr = museum.museum_addr
+                            bm.museum_lat = museum.museum_lat
+                            bm.museum_lon = museum.museum_lon
+                            bm.museum_district = museum.museum_district
+                            try? moc.save()
+                            addedInBM = true
                         }
+                    })
+                    {
+                        Text((addedInBM ? "Remove from" : "Add to")+" Bookmark")
                     }
-                })
-                {
-                    Text((addedInBM ? "Remove from" : "Add to")+" Bookmark")
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .buttonBorderShape(.capsule)
+                    .tint(addedInBM ? .red : .green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.capsule)
-                .controlSize(.large)
+                .padding(.trailing, 10)
+
                 Text("Comments:")
-                    .font(.system(size: 24))
+                    .font(.system(size: 24, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     .padding(EdgeInsets(top: 18, leading: 14, bottom: 8, trailing: 0))
                 VStack(spacing: 10){
