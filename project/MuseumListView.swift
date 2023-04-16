@@ -91,13 +91,13 @@ struct MuseumListView: View {
                     NavigationLink(destination: MuseumDetailView(museum: museum)) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(museum.museum_name)
-                                .font(.system(size: 23))
+                                .font(.system(size: 22))
                                 .fontWeight(.bold)
                             Text(museum.museum_addr)
-                                .font(.system(size: 18))
+                                .font(.system(size: 17))
                                 .foregroundColor(.gray)
                             Text("Is it gov owned: \(museum.museum_isgov ? "Yes" : "No")")
-                                .font(.system(size: 18))
+                                .font(.system(size: 17))
                                 .foregroundColor(.gray)
                         }
                         .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
