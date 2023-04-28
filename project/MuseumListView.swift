@@ -59,34 +59,6 @@ struct MuseumListView: View {
                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
             }
             if !isBookmarksView {
-//                List(museumList) {
-//                    museum in
-//                    NavigationLink {
-//                        MuseumDetailView(museum: museum)
-//                    } label: {
-//                        VStack {
-//                            Text(museum.museum_name).font(.system(size: 28)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-//                            Text("Is it gov owned: " + (museum.museum_isgov == true ? "Yes" : "No")).font(.system(size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-//                        }
-//                        VStack(alignment: .leading, spacing: 8) {
-//                            Text(museum.museum_name)
-//                                .font(.system(size: 24))
-//                                .fontWeight(.bold)
-//                            Text(museum.museum_addr)
-//                                .font(.system(size: 18))
-//                                .foregroundColor(.gray)
-//                            Text("Is it gov owned: " + (museum.museum_isgov ? "Yes" : "No"))
-//                                .font(.system(size: 16))
-//                                .foregroundColor(.gray)
-//                        }
-//                        .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
-//                    }
-//                    .background(Color(UIColor { $0.userInterfaceStyle == .dark ? .black : .white }))
-//                }
-//                .listStyle(InsetGroupedListStyle())
-//                .navigationBarTitleDisplayMode(.inline)
-//                .font(.system(size: 32, weight: .bold))
-//                .navigationTitle("Museum List")
                 List(museumList) { museum in
                     NavigationLink(destination: MuseumDetailView(museum: museum)) {
                         VStack(alignment: .leading, spacing: 8) {
@@ -100,33 +72,14 @@ struct MuseumListView: View {
                                 .font(.system(size: 17))
                                 .foregroundColor(.gray)
                         }
-                        .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
-                        .background(Color(UIColor { $0.userInterfaceStyle == .dark ? .black : .white }))
                     }
+                    .listRowBackground(Color.eventCardBackground)
                 }
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Museum List", displayMode: .inline)
                 .font(.system(size: 32, weight: .bold))
+                .background(Color.background)
             } else {
-//                List() {
-//                    ForEach(bookmarkItems) {
-//                        bm in NavigationLink() {
-//                            MuseumDetailView(museum: Museum(id: Int(bm.id), museum_name: bm.museum_name ?? "Fail to fetch data from server", museum_addr: bm.museum_addr ?? "Fail to fetch data from server", museum_district: bm.museum_district ?? "Fail to fetch data from server", museum_isgov: false, museum_lat: bm.museum_lat, museum_lon: bm.museum_lon))
-//                        } label: {
-//                            VStack {
-//                                Text((bm.museum_name != nil ? bm.museum_name! : ""))
-//                                    .font(.system(size: 18))
-//                                    .fontWeight(.bold)
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-//                                Text("Is it gov owned: " + (bm.museum_isgov == true ? "Yes" : "No"))
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-//                            }
-//                        }
-//                    }
-//                }
-//                .navigationTitle("Bookmark List")
                 List(bookmarkItems) { bm in
                     NavigationLink(destination: MuseumDetailView(museum: Museum(
                         id: Int(bm.id),
@@ -146,6 +99,7 @@ struct MuseumListView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 8)
                     }
+                    .listRowBackground(Color.eventCardBackground)
                 }
                 .navigationTitle("Bookmark List")
             }
@@ -171,7 +125,6 @@ struct MuseumListView: View {
             }
         }
     }
-    
     public struct MyStruct: Decodable {
         public var unknown: Double?
         public var meta: [String: String]?

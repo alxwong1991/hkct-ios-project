@@ -68,67 +68,7 @@ struct MuseumDetailView: View {
                     }
                 }
                 .padding(.horizontal, 16)
-                
-//                HStack {
-//                    Text("Name:\n" + museum.museum_name)
-//                        .font(.system(size: 24, weight: .bold))
-//                        .frame(maxWidth: .infinity, alignment: .topLeading)
-//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
-//                }
-//                HStack {
-//                    Text("Address:\n" + museum.museum_addr)
-//                        .font(.system(size: 20))
-//                        .frame(maxWidth: .infinity, alignment: .topLeading)
-//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
-//                }
-//                HStack {
-//                    Text("District:\n" + museum.museum_district)
-//                        .font(.system(size: 20))
-//                        .frame(maxWidth: .infinity, alignment: .topLeading)
-//                        .padding(EdgeInsets(top: 5, leading: 17, bottom: 0, trailing: 0))
-//                }
-                
-//                HStack {
-//                    .foregroundColor(Color.white)
-//                    .padding(.trailing, 10)
-//                    .tint(Color.primary)
-//                    .cornerRadius(10)
-//
-//                    Button(action: {
-//                        if !addedInBM {
-//                            let bm = Bookmark(context: moc)
-//                            bm.id = Int16(museum.id)
-//                            bm.museum_name = museum.museum_name
-//                            bm.museum_addr = museum.museum_addr
-//                            bm.museum_lat = museum.museum_lat
-//                            bm.museum_lon = museum.museum_lon
-//                            bm.museum_district = museum.museum_district
-//                            try? moc.save()
-//                            addedInBM = true
-//                        } else {
-//                            for i in bookmarkItems{
-//                                if i.museum_name == museum.museum_name {
-//                                    moc.delete(i)
-//                                    try? moc.save()
-//                                    addedInBM = false
-//                                    return
-//                                }
-//                            }
-//                        }
-//                    })
-//                    {
-//                        Text((addedInBM ? "Remove from" : "Add to")+" Bookmark")
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    .controlSize(.large)
-//                    .buttonBorderShape(.capsule)
-//                    .tint(addedInBM ? Color.red : Color.green)
-//                    .foregroundColor(.white)
-//                    .padding(.trailing, 10)
-//                    .cornerRadius(10)
-//
-//                }
-                
+
                 HStack(spacing: 10) {
                     Button(action: {
                         showMapView.toggle()
@@ -199,7 +139,7 @@ struct MuseumDetailView: View {
                                     .foregroundColor(.black)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
-//                                Button(action: {
+                                Button(action: {
 //                                    let paras: [String: Any] = ["service": "delete_comments", "id": comment.id]
 //                                    createAjax(link: "https://pofo.me/museums/hkctapi.php", paras: paras) { response in
 //                                        if let data = response as? [String: Any], let success = data["success"] as? Bool, success {
@@ -215,9 +155,9 @@ struct MuseumDetailView: View {
 //                                            }
 //                                        }
 //                                    }
-//                                }) {
-//                                    Text("Delete")
-//                                }
+                                }) {
+                                    Text("Delete")
+                                }
                             }
                         }
                         .padding(10)
@@ -230,6 +170,12 @@ struct MuseumDetailView: View {
                     }
                 }
                 .padding(EdgeInsets(top: 10, leading: 14, bottom: 0, trailing: 14))
+
+                Text("Input your comments:")
+                    .font(.system(size: 24, weight: .bold))
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(EdgeInsets(top: 18, leading: 14, bottom: 8, trailing: 0))
+                
                 HStack {
                     TextField("Your name (optional)", text: $sender)
                         .padding()
@@ -293,6 +239,7 @@ struct MuseumDetailView: View {
                 }
             }
         }
+        .background(Color.background)
     }
 }
 
