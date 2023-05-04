@@ -125,43 +125,43 @@ struct MuseumDetailView: View {
                             HStack {
                                 Text("\(comment.sender):")
                                     .font(.headline)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
                                 Text(getFormatedDate(dateString: comment.datetime))
                                     .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                             }
                             HStack {
                                 Text(comment.message)
                                     .font(.body)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.gray)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
+                                
+                                // only works in local
                                 Button(action: {
-//                                    let paras: [String: Any] = ["service": "delete_comments", "id": comment.id]
-//                                    createAjax(link: "https://pofo.me/museums/hkctapi.php", paras: paras) { response in
-//                                        if let data = response as? [String: Any], let success = data["success"] as? Bool, success {
-//                                            comments.removeAll { $0.id == comment.id }
-//                                            self.commentsList = comments.map {
-//                                                Comment(
-//                                                    id: $0.id,
-//                                                    museumid: $0.museumid,
-//                                                    sender: $0.sender,
-//                                                    message: $0.message,
-//                                                    datetime: $0.datetime
-//                                                )
-//                                            }
-//                                        }
-//                                    }
+                                    if let index = commentsList.firstIndex(where: { $0.id == comment.id }) {
+                                        commentsList.remove(at: index)
+                                        self.commentsList = commentsList.map {
+                                            Comment(
+                                                id: $0.id,
+                                                museumid: $0.museumid,
+                                                sender: $0.sender,
+                                                message: $0.message,
+                                                datetime: $0.datetime
+                                            )
+                                        }
+                                    }
                                 }) {
                                     Text("Delete")
                                 }
                             }
                         }
                         .padding(10)
-                        .background(Color(UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)))
+//                        .background(Color(UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)))
+                        .background(Color.eventCardBackground)
                         .cornerRadius(10)
                         .fixedSize(horizontal: false, vertical: true)
                         .alignmentGuide(.leading) {
@@ -273,5 +273,3 @@ func getFormatedDate(dateString: String) -> String {
     dateFormatter.dateFormat = "yyyy/MM/dd' at 'h:mm a"
     return dateFormatter.string(from: date)
 }
-
-

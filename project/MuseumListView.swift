@@ -65,6 +65,7 @@ struct MuseumListView: View {
                             Text(museum.museum_name)
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
+                                .foregroundColor(.black)
                             Text(museum.museum_addr)
                                 .font(.system(size: 17))
                                 .foregroundColor(.gray)
@@ -73,7 +74,7 @@ struct MuseumListView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .listRowBackground(Color.eventCardBackground)
+                    .listRowBackground(Color.background)
                 }
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Museum List", displayMode: .inline)
@@ -99,7 +100,7 @@ struct MuseumListView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 8)
                     }
-                    .listRowBackground(Color.eventCardBackground)
+                    .listRowBackground(Color.background)
                 }
                 .navigationTitle("Bookmark List")
             }
